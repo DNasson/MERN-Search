@@ -90,3 +90,5 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+
+// replace loginUser() functionality with the LOGIN_USER mutation functionality

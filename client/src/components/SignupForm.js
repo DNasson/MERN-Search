@@ -108,3 +108,6 @@ const SignupForm = () => {
 };
 
 export default SignupForm;
+
+// replace addUser from API with ADD_USER mutation functionality
+

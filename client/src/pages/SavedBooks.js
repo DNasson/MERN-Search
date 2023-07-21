@@ -109,3 +109,7 @@ const SavedBooks = () => {
 };
 
 export default SavedBooks;
+
+// remove useEffect() hook that sets the state for userData
+// use the useQuery() Hook to execute the GET_ME query on load and save it to a variable named userData
+// use the useMutation() Hook to execute the REMOVE_BOOK mutation in the handleDeleteBook() function instead of the deleteBook() function that's imported from API file

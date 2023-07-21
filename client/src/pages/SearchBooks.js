@@ -152,3 +152,6 @@ const SearchBooks = () => {
 };
 
 export default SearchBooks;
+
+// use apollo useMutation() hook to execute SAVEBOOK mutation in handleSaveBook() function from API file
+// keep logic for saving book's ID to state in try...catch block
