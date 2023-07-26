@@ -1,30 +1,42 @@
-import { User } from "../models"
-import auth = require("../utils/auth")
+const { gql } = require('apollo-server-express');
 
-Query 
-    me: User
+const typeDefs = gql`
+    
+    type User { 
+        _id: ID
+        username: String
+        email: String
+        bookCount: Int
+        savedBooks: [Book]
+    }
 
-Mutation
-    login: email and password, return auth
-    addUser: username, email, password, return auth
-    saveBook: authors, description, bookId, image, link, title, user type (input type)
-    removeBook: bookId, return user type (input type)
+    type Book {
+        bookId: String
+        authors: [String]
+        description: String
+        image: String
+        link: String
+        title: String
+    }
 
-User
-    _id
-    username
-    email
-    bookCount
-    savedBooks
+    type Auth {
+        token: ID!
+        user: User
+    }
 
-Book
-    bookId
-    authors
-    description
-    image
-    link
-    title
+    type Query {
+        users: [User]
+        user(username: String!): User
+        me: User
+    }
 
-Auth
-    token
-    user (user type)
+    type Mutation {
+        login(email: String!, password: String!): Auth
+        addUser(username: String!, email: String!, password: String!): Auth
+        saveBook(authors: [String], description: String!, bookId: String!, image: String, link: String, title: String!): User
+        removeBook(bookId: String!): User
+    }
+
+`;
+
+module.exports = typeDefs;

@@ -7,6 +7,7 @@ import {
   Card,
   Row
 } from 'react-bootstrap';
+import { useMutation } from '@apollo/client'
 
 import Auth from '../utils/auth';
 import { saveBook, searchGoogleBooks } from '../utils/API';
@@ -64,6 +65,8 @@ const SearchBooks = () => {
     // find the book in `searchedBooks` state by the matching id
     const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
 
+    // useMutation to execute SAVEBOOK mutation
+    const [ saveBook, {error}] = useMutation(SAVEBOOK)
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
