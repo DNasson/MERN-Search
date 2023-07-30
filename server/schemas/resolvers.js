@@ -11,15 +11,40 @@ const resolvers = {
     user: async (parent, { username }) => {
       return user.findOne({ username });
     },
+    // define and develop the resolver for your 'me' query!
+    me: async (parent, args, context) => {
+      if (context.user) {
+        return User.findOne({ _id: context.user._id }).populate("savedBooks");
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
   },
-};
-Mutation: {
-  createUser: async (parent, args) => {
-    const user = await User.create(args);
-    const token = signToken(user);
-    return { token, user };
-  };
-  login: async (parent, { email, password }) => {
+
+  Mutation: {
+    
+    login: async (parent, { email, password }) => {
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        throw new AuthenticationError('No user with this email found!');
+      }
+
+      const correctPw = await user.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw new AuthenticationError('Incorrect password!');
+      }
+
+      const token = signToken(user);
+      return { token, user };
+    },
+
+    addUser: async (parent, args) => {
+      const user = await User.create(args);
+      const token = signToken(user);
+      return { token, user };
+    },
+
     saveBook: async (parent, { bookData }, context) => {
       if (context.user) {
         const updatedUser = await saveBook({
@@ -29,8 +54,9 @@ Mutation: {
         return updatedUser;
       }
       throw new AuthenticationError("You need to be logged in!");
-    };
-    deleteBook: async (parent, { bookId }, context) => {
+    },
+
+    removeBook: async (parent, { bookId }, context) => {
       if (context.user) {
         const updatedUser = await deleteBook({
           username: context.user.username,
@@ -39,7 +65,8 @@ Mutation: {
         return updatedUser;
       }
       throw new AuthenticationError("You need to be logged in!");
-    };
-  };
-}
+    },
+  },
+};
+
 module.exports = resolvers;
