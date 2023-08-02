@@ -1,5 +1,5 @@
 import React from 'react';
-import { ApolloProvider, InMemoryCache, ApolloClient, HttpLink } from '@apollo/react-hooks';
+import { ApolloProvider, InMemoryCache, ApolloClient, createHttpLink } from '@apollo/react-hooks';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { setContext } from '@apollo/client/link/context';
 import SearchBooks from './pages/SearchBooks';
@@ -16,9 +16,13 @@ const authLink = setContext((_, { headers }) => {
     }
   }
 })
-const client = new ApolloClient({
-  link: authLink.concat(HttpLink),
+
+const httpLink = createHttpLink({
   uri: '/graphql',
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 
@@ -31,7 +35,7 @@ function App() {
         <Routes>
           <Route 
             path='/' 
-            element={<SearchBooks />} 
+            element={<SearchBooks client={client}/>} 
           />
           <Route 
             path='/saved' 
