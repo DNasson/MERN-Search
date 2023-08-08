@@ -14,7 +14,13 @@ import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
 
 const SearchBooks = ({client}) => {
   // create state for holding returned google api data
-  const [searchedBooks, setSearchedBooks] = useState([]);
+  const [searchedBooks, setSearchedBooks] = useState({
+    bookId: '',
+    authors: ['No author to display'],
+    title: '',
+    description: '',
+    image: ''
+  });
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState('');
 
