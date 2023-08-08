@@ -20,6 +20,7 @@
         "@apollo/react-hooks": "^4.0.0",
         "apollo-link-context": "^1.0.20",
         "apollo-server-express": "^3.12.0",
+        "are-we-there-yet": "^4.0.1",
         "bootstrap": "^4.6.2",
         "react-bootstrap": "^2.8.0",
         "react-hook-form": "^7.45.2",
