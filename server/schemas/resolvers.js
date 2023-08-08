@@ -1,20 +1,14 @@
 const { AuthenticationError } = require("apollo-server-express");
 const { User } = require("../models");
 const { signToken } = require("../utils/auth");
-const { createUser, saveBook } = require("../controllers/user-controller");
 
 const resolvers = {
   Query: {
-    users: async () => {
-      return User.find();
-    },
-    user: async (parent, { username }) => {
-      return user.findOne({ username });
-    },
+  
     // define and develop the resolver for your 'me' query!
     me: async (parent, args, context) => {
       if (context.user) {
-        return User.findOne({ _id: context.user._id }).populate("savedBooks");
+        return User.findOne({ _id: context.user._id });
       }
       throw new AuthenticationError("You need to be logged in!");
     },
@@ -47,10 +41,11 @@ const resolvers = {
 
     saveBook: async (parent, { bookData }, context) => {
       if (context.user) {
-        const updatedUser = await saveBook({
-          ...bookData,
-          username: context.user.username,
-        });
+       const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { savedBooks: bookData } },
+          { new: true, runValidators: true }
+       )
         return updatedUser;
       }
       throw new AuthenticationError("You need to be logged in!");
@@ -58,11 +53,12 @@ const resolvers = {
 
     removeBook: async (parent, { bookId }, context) => {
       if (context.user) {
-        const updatedUser = await deleteBook({
-          username: context.user.username,
-          bookId,
-        });
-        return updatedUser;
+        const updatedUser = await User.findOneAndUpdate(
+            { _id: context.user._id },
+            { $pull: { savedBooks: { bookId: bookId } } },
+            { new: true, runValidators: true }
+        )
+          return updatedUser;
       }
       throw new AuthenticationError("You need to be logged in!");
     },

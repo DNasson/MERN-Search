@@ -4,7 +4,7 @@ import {
   InMemoryCache,
   ApolloClient,
   createHttpLink,
-} from "@apollo/react-hooks";
+} from "@apollo/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { setContext } from "@apollo/client/link/context";
 import SearchBooks from "./pages/SearchBooks";
@@ -15,8 +15,8 @@ const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem("id_token");
 
   return {
-    Navbar: {
-      ...Navbar,
+    headers: {
+      ...headers,
       authorization: token ? `Bearer ${token}` : "",
     },
   };
