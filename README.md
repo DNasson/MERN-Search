@@ -38,18 +38,18 @@ THEN I am logged out of the site and presented with a menu with the options Sear
 
 Starter Code: https://utah.bootcampcontent.com/utah-coding-bootcamp/UofU-VIRT-FSF-PT-02-2023-U-LOLC/-/tree/main/01%20-%20Class%20Content/21-MERN/02-Challenge 
 
-- What was your motivation?
-- Why did you build this project? (Note: the answer is not "Because it was a homework assignment.")
-- What problem does it solve?
-- What did you learn?
+The motivation behind this project is to give the user an opportunity to search for books they enjoy, find information about those books and save them in an area that will remain after they log out. 
+I built this project to utilize skills I learned for the MongoDB Atlas and connecting that to the application code I built and heroku. 
+I learned how Apollo Sandbox allows the user to login, create a token, and get information about that specific user's preferences. I learned what it means to go from a RESTful application to one that uses mutations and queries to do the same tasks. 
 
 ## Installation
-
-What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running.
+Go to repository, click green code button and copy information. Open terminal program on computer and git clone the code you copied. Run "npm install" "npm run build" "npm run develop" to open the local host page. There will also be a link to the Apollo Sandbox where the code can also be utilized. 
 
 ## Usage
-
-Provide instructions and examples for use. Include screenshots as needed.
+https://sheltered-tor-27761-b0539a386f84.herokuapp.com/
+![Screenshot 2023-08-08 at 18 11 07](https://github.com/DNasson/MERN-Search/assets/123035338/1129c0d3-e07e-4dd8-94e0-5eb3404090f8)
+![Screenshot 2023-08-08 at 18 10 32](https://github.com/DNasson/MERN-Search/assets/123035338/c9e0f812-0530-42cb-bbb5-e31fc9a07030)
+Log in either with a previous log in on the site or sign up as a new user. Search for books, save books that you would like to find again easily. 
 
 ## License
 
